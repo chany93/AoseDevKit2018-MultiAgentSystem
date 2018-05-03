@@ -48,7 +48,7 @@ public abstract class Intention<E extends Event> {
 	}
 	
 	public final boolean sendMessage (Message msg) {
-		return Environment.getEnvironment().sendMessage( msg );
+		return Environment.sendMessage( msg );
 	}
 	
 	public Agent agent;

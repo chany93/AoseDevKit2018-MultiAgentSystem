@@ -1,26 +1,21 @@
 package unitn.adk2018;
 
 import java.util.*;
-import java.util.function.BiConsumer;
 
 import unitn.adk2018.event.Message;
 import unitn.adk2018.pddl.PddlDomain;
 
 public class Environment {
 
-	static Environment theInstance;
+	private static Environment theInstance;
 	
-	public static Environment getEnvironment () {
+	private static Environment getEnvironment () {
 		if(theInstance==null) {
 			theInstance = new Environment();
 	        new GanttLiveLoggerGUI("Timeline");
 	        new SimulationGui();
 		}
 		return theInstance;
-	}
-	
-	public static String getEnvironmentAgentName () {
-		return getEnvironment().getEnvironmentAgent().getName();
 	}
 	
 	
@@ -31,20 +26,29 @@ public class Environment {
 	public PddlDomain pddlDomain;
 	
 	
+	
 	private Environment () {
 		theTimer = new Timer();
 		agents = new HashMap<String, Agent> ();
 	}
+
 	
+
+	public static PddlDomain getPddlDomain () {
+		return getEnvironment().pddlDomain;
+	}
+
+	public static void setPddlDomain(PddlDomain pddlDomain) {
+		getEnvironment().pddlDomain = pddlDomain;
+	}
 	
-	
-	public Timer getSystemTimer() {
-		return theTimer;
+	public static Timer getSystemTimer() {
+		return getEnvironment().theTimer;
 	}
 	
 	public static long getSimulationTime () {
-		if (getEnvironment().getEnvironmentAgent() != null)
-			return getEnvironment().getEnvironmentAgent().getAgentTime();
+		if (getEnvironmentAgent() != null)
+			return getEnvironmentAgent().getAgentTime();
 		else
 			return 0;
 	}
@@ -62,25 +66,31 @@ public class Environment {
 	}
 
 	public static boolean isPaused () {
-		if (getEnvironment().getEnvironmentAgent() != null)
-			return getEnvironment().getEnvironmentAgent().isPaused();
+		if (getEnvironmentAgent() != null)
+			return getEnvironmentAgent().isPaused();
 		else
 			return false;
 	}
 	
 
+	public static Map<String, Agent> getAgents () {
+		return getEnvironment().agents;
+	}
 
-	public void addAgent ( Agent pa ) {
-		if(agents.containsKey(pa.name))
+	public static void addAgent ( Agent pa ) {
+		if(getEnvironment().agents.containsKey(pa.name))
 			System.err.println("ERROR: agent with name " + pa.getName() + "already exists!");
-		agents.put( pa.name, pa );
+		getEnvironment().agents.put( pa.name, pa );
 	}
 	
-	public Agent getEnvironmentAgent() {
-		return environmentAgent;
+	public static Agent getEnvironmentAgent() {
+		return getEnvironment().environmentAgent;
 	}
-	
-	public void setEnvironmentAgent ( Agent a ) {
+
+	public static void setEnvironmentAgent ( Agent a ) {
+		getEnvironment().setEnvAgent(a);
+	}
+	private void setEnvAgent ( Agent a ) {
 		if(!agents.containsKey(a.name))
 			agents.put( a.name, a );
 		
@@ -99,10 +109,10 @@ public class Environment {
 		}
 	};
 	
-	public boolean sendMessage ( Message m ) {
+	public static boolean sendMessage ( Message m ) {
 		boolean result = false;
-		if ( agents.containsKey (m.getTo()) ) {
-			Agent pa = agents.get(m.getTo());
+		if ( getEnvironment().agents.containsKey (m.getTo()) ) {
+			Agent pa = getEnvironment().agents.get(m.getTo());
 			pa.pushMessage( m );
 			result = true;
 		}
@@ -112,12 +122,13 @@ public class Environment {
 	///
 	/// Simple utility for debugging convenience
 	///
-	static public void printStackTrace() {
+	public static void printStackTrace() {
 		try {
 			throw new Exception ("trace point");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
+
 	
 }

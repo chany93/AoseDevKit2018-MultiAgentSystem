@@ -1,11 +1,7 @@
 package unitn.adk2018;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Observable;
-import java.util.Observer;
-
 import javax.swing.SwingUtilities;
 
 import org.jfree.chart.ChartFactory;
@@ -19,9 +15,10 @@ import org.jfree.ui.ApplicationFrame;
 import org.jfree.ui.RefineryUtilities;
 
 import unitn.adk2018.GanttLogger.LoggedTask;
-import unitn.adk2018.intention.ElaborationStatus;
 
 public class GanttLiveLoggerGUI extends ApplicationFrame implements Runnable {
+	
+	private static final long serialVersionUID = 1L;
 	
 	private final Map<String, TaskSeries> taskSeries = new HashMap<String, TaskSeries>();
     private final TaskSeriesCollection dataset = new TaskSeriesCollection();

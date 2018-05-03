@@ -1,7 +1,5 @@
 package unitn.adk2018.condition;
 
-import java.util.TimerTask;
-
 import unitn.adk2018.Environment;
 import unitn.adk2018.MaintenanceCondition;
 import unitn.adk2018.intention.SchedulingQueue;

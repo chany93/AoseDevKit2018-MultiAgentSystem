@@ -2,7 +2,6 @@ package unitn.adk2018;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.time.format.DateTimeFormatter;
 
 public class SimulationGui {
 
@@ -65,21 +64,21 @@ public class SimulationGui {
 	   Button play = new Button("play");
 	   play.addActionListener(new ActionListener() {
 		   public void actionPerformed(ActionEvent e) {
-			   Environment.getEnvironment().resumeSimulationTime();
+			   Environment.resumeSimulationTime();
 		   }
 	   });
 	   
 	   Button pause = new Button("pause");
 	   pause.addActionListener(new ActionListener() {
 		   public void actionPerformed(ActionEvent e) {
-			   Environment.getEnvironment().pauseSimulationTime();
+			   Environment.pauseSimulationTime();
 		   }
 	   });
 	   
 	   Button printFullState = new Button("printFullState");
 	   printFullState.addActionListener(new ActionListener() {
 		   public void actionPerformed(ActionEvent e) {
-			   for (Agent a : Environment.getEnvironment().agents.values()) {
+			   for (Agent a : Environment.getAgents().values()) {
 				   a.printFullState();
 			   }
 		   }

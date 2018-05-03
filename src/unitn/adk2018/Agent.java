@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Observer;
-import java.util.concurrent.DelayQueue;
 
 import unitn.adk2018.event.Event;
 import unitn.adk2018.event.Message;
@@ -16,7 +15,6 @@ import unitn.adk2018.pddl.PddlWorld;
 
 public abstract class Agent implements Runnable {
 	
-	private final Agent agent = this;
 	public final boolean debugOn;
 	protected final String name;
 	protected final PddlWorld myBeliefs;
@@ -35,7 +33,7 @@ public abstract class Agent implements Runnable {
 		myBeliefs = new PddlWorld();
 		eventDictionary = new HashMap<Class<? extends Event>, List<Class<? extends Intention<? extends Event>>>> ();
 		mqueue = new MessageQueue();
-		waitingIntention = new SchedulingQueue (Environment.getEnvironment().getSystemTimer());
+		waitingIntention = new SchedulingQueue (Environment.getSystemTimer());
 		currentIntentions = new HashSet<ScheduledIntention>();
 	}
 	

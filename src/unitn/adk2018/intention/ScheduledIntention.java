@@ -27,6 +27,8 @@ public final class ScheduledIntention {
 	private long whenToRun;
 	
 	
+	
+	@SuppressWarnings("unchecked")
 	public ScheduledIntention(Agent _agent, Event _ev, Intention<? extends Event> _intention, MaintenanceCondition _asLongAs) {
 		this.agent = _agent;
 		this.event = _ev;
