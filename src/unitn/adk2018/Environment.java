@@ -6,7 +6,7 @@ import unitn.adk2018.event.Message;
 import unitn.adk2018.pddl.PddlDomain;
 
 public class Environment {
-
+	
 	private static Environment theInstance;
 	
 	private static Environment getEnvironment () {
@@ -105,7 +105,7 @@ public class Environment {
 	private final Observer environmentBeliefsObserver = new Observer() {
 		@Override
 		public void update(Observable o, Object arg) {
-			System.out.println( environmentAgent.getName() + " World changed: " + environmentAgent.getBeliefs().pddlClauses() );
+			Logger.println( environmentAgent, "World changed: " + environmentAgent.getBeliefs().pddlClauses() );
 		}
 	};
 	

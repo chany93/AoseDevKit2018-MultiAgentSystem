@@ -5,6 +5,7 @@ import java.util.Observer;
 
 import unitn.adk2018.Agent;
 import unitn.adk2018.GenericObservable;
+import unitn.adk2018.Logger;
 import unitn.adk2018.MaintenanceCondition;
 import unitn.adk2018.condition.TrueCondition;
 import unitn.adk2018.event.Event;
@@ -69,9 +70,8 @@ public final class ScheduledIntention {
 	
 	public final void execute() {
 		synchronized (this) {
-			if (agent.debugOn)
-				System.out.println( agent.getName() + " " + intention + ": run() " );
-//						+ ", step: " + (next.step!=null?next.step.getClass().getSimpleName():"null") );
+//			if (agent.debugOn)
+//				Logger.println( intention, "run()" );
 
 			if (!asLongAs.isTrue()) {
 				System.err.println( agent.getName() + " " + intention + ": asLongAs is false");
@@ -97,7 +97,7 @@ public final class ScheduledIntention {
 			}
 			
 			if (status.get() == ElaborationStatus.CREATED) {
-				if (agent.debugOn) System.out.println( agent.getName() + " " + intention + " STARTED ");
+				if (agent.debugOn) Logger.println( intention, "STARTED");
 				status.set(ElaborationStatus.STARTED);
 //				delay(0);
 //				agent.rescheduleIntention(self);
@@ -114,7 +114,7 @@ public final class ScheduledIntention {
 				next = next.step.apply(input);
 				
 				if (next == null) {
-					if (agent.debugOn) System.out.println( agent.getName() + " " + intention + " TERMINATED_WITH_SUCCESS ");
+					if (agent.debugOn) Logger.println( intention, "TERMINATED_WITH_SUCCESS ");
 					this.status.set( ElaborationStatus.HANDLED_WITH_SUCCESS );
 					agent.removeFromScheduledIntentions(self);
 					intention.pass(input);
@@ -122,14 +122,14 @@ public final class ScheduledIntention {
 				}
 				
 				if (next.waitFor!=null) {
-					if (agent.debugOn) System.out.println( agent.getName() + " " + intention + " WAIT_FOR " + next.waitFor);
+					if (agent.debugOn) Logger.println( intention, "WAIT_FOR " + next.waitFor);
 					delay(next.waitFor);
 					agent.rescheduleIntention(self);
 					return;
 				}
 				
 				else if (next.waitUntil!=null) {
-					if (agent.debugOn) System.out.println( agent.getName() + " " + intention + " WAIT_UNTIL " + next.waitUntil.getClass().getSimpleName());
+					if (agent.debugOn) Logger.println( intention, "WAIT_UNTIL " + next.waitUntil.getClass().getSimpleName());
 					next.waitUntil.addObserver(waitForObserver);
 					if(next.waitUntil.isTrue())
 						waitForObserver.update(next.waitUntil, null);
@@ -148,7 +148,7 @@ public final class ScheduledIntention {
 		synchronized (this) {
 			if (status.get() == ElaborationStatus.CREATED || status.get() == ElaborationStatus.STARTED) {
 
-				if (agent.debugOn) System.out.println( agent.getName() + " " +  intention + " TERMINATED_WITH_FAILURE " );
+				if (agent.debugOn) Logger.println( intention, "TERMINATED_WITH_FAILURE " );
 				status.set(ElaborationStatus.HANDLED_WITH_FAILURE);
 				agent.removeFromScheduledIntentions(self);
 				

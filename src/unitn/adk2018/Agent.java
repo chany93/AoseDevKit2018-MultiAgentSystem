@@ -94,12 +94,12 @@ public abstract class Agent implements Runnable {
 	
 	public boolean pushMessage ( Message msg ) {
 		if (msg==null) {
-			System.err.println ( getName() + " null: pushMessage()" );
+//			Logger.println( this, "pushMessage(null)" );
 			return false;
 		}
 		
 		if (msg.getTo().equals(getName())) {
-			System.out.println( getName() + " " + msg + ": pushMessage() ");
+//			Logger.println( this, "pushMessage(" + msg + ")" );
 			mqueue.add (msg);
 			//GanttLogger.get().registerEvent(this, msg);
 			return true;
@@ -113,10 +113,10 @@ public abstract class Agent implements Runnable {
 	
 	public boolean pushGoal ( Event goal, MaintenanceCondition _asLongAs ) {
 		if (goal==null) {
-			System.err.println ( getName() + " null: pushGoal()" );
+			System.err.println ( getName() + "pushGoal(null)" );
 			return false;
 		}
-		System.out.println( getName() + " " + goal + ": pushGoal()" );
+//		Logger.println( this, "pushGoal(" + goal + ")" );
 		GanttLogger.get().registerEvent(this, goal);
 		return doBDImetaReasoning( goal, _asLongAs );
 	}

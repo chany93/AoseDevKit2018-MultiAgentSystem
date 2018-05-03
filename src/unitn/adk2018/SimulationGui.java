@@ -78,6 +78,7 @@ public class SimulationGui {
 	   Button printFullState = new Button("printFullState");
 	   printFullState.addActionListener(new ActionListener() {
 		   public void actionPerformed(ActionEvent e) {
+			   System.err.println("########## FULL DUMP ##########");
 			   for (Agent a : Environment.getAgents().values()) {
 				   a.printFullState();
 			   }
