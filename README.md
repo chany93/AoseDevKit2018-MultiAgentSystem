@@ -56,7 +56,7 @@ Hare a brief description of the main classes and packages:
         - boolean removeFromScheduledIntentions(ScheduledIntention si)
     - execution
         - void startInSeparateThread()
-- **unitn.adk2018.Environment** is the entry point, in a singleton pattern, for everything in the simulation
+- **unitn.adk2018.Environment** is the entry point, implemented using the singleton pattern, for everything in the simulation
     - PddlDomain
     - SystemTimer
     - Agents
