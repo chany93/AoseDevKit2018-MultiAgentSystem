@@ -117,6 +117,10 @@ public class BlackboxUtils {
 //				outputActions.add(sa);
 				
 				if (agent.debugOn) System.out.print ( " do: " + what);
+				if (agent.debugOn) {
+					for (int i=0; i<args.length; i++)
+						System.out.print ( " " + args[i] );
+				}
 				if (agent.debugOn) System.out.println ( " ." );
 				previous_step = sa;
 //				previous_action = sa;
