@@ -105,7 +105,7 @@ public class Environment {
 	private final Observer environmentBeliefsObserver = new Observer() {
 		@Override
 		public void update(Observable o, Object arg) {
-			Logger.println( environmentAgent, "World changed: " + environmentAgent.getBeliefs().pddlClauses() );
+//			System.out.println( "World changed: " + environmentAgent.getBeliefs().pddlClauses() );
 		}
 	};
 	

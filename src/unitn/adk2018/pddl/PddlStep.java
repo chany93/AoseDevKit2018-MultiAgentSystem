@@ -32,9 +32,9 @@ public class PddlStep {
 	
 	
 
-	private final String action;
-	private final boolean parallelizableWithPrevious;
-	private final String[] args;
+	public final String action;
+	public final boolean parallelizableWithPrevious;
+	public final String[] args;
 	
 	
 	

@@ -9,9 +9,9 @@ import unitn.adk2018.intention.Intention;
 
 public class Logger {
 
-	private final static boolean GANTT = true;
-	private final static int A_MAX = 3;
-	private final static int I_MAX = 20;
+	public static boolean GANTT = true;
+	public static int A_MAX = 3;
+	public static int I_MAX = 20;
 	
 	private static Logger logger;
 	private static Logger getLogger() {
