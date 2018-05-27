@@ -83,7 +83,7 @@ public abstract class Intention<E extends Event> {
 	}
 	
 	public String toString() {
-		return event.getId() + "_" + this.getClass().getSimpleName();
+		return event.getId() + "_" + this.getClass().getSimpleName() + "(" + event + ")";
 	}
 	
 }
